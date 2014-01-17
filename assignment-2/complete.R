@@ -14,8 +14,12 @@ complete <- function(directory, id=1:332) {
 	for (id in ids) {
 		data = getmonitor(id, directory)
 		noSulfateFilter = is.na(data[['sulfate']])
-		noNitrateFilter = is.na(data[['nitrate']])
-		numCompleteCases = nrow(data[!noSulfateFilter,][!noNitrateFilter,])
+		# Since we're building arrays of booleans, rather than filering
+		# functions, we have to build the second filter *after* we've applied the
+		# first one, or else the filtering data is outdated.
+		halfFiltered = data[!noSulfateFilter,]
+		noNitrateFilter = is.na(halfFiltered[['nitrate']])
+		numCompleteCases = nrow(halfFiltered[!noNitrateFilter,])
 		numCompleteCasesVector = c(numCompleteCasesVector, numCompleteCases)
 	}
 	
