@@ -1,6 +1,8 @@
 #!/usr/bin/env Rscript
 
 ############
+# Return the monitoring data for a particular monitoring location.
+#
 #        id: The id of the monitor data we wish to fetch.  A 1-length vector of
 #            a character, integer, or numeric.
 # directory: Directory containing the CSV files.

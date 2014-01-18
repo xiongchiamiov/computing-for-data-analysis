@@ -3,6 +3,8 @@
 source('getmonitor.R')
 
 ############
+# Find the number of completely observed cases in a set of monitor locations.
+#
 # directory: Directory containing the CSV files.
 #        id: The ids of the monitor data we wish to fetch.  A n-length vector
 #            of characters, integers, or numerics.
