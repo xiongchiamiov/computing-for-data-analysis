@@ -18,7 +18,7 @@ corr <- function(directory, threshold=0) {
 	correlations = vector('numeric')
 	for (id in completeCaseIds) {
 		data = getmonitor(id, directory)
-		correlation = cor(data[['sulfate']], data[['nitrate']])
+		correlation = cor(data[['sulfate']], data[['nitrate']], use='complete.obs')
 		correlations = c(correlations, correlation)
 	}
 	
