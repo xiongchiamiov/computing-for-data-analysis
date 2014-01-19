@@ -15,7 +15,7 @@ corr <- function(directory, threshold=0) {
 	completeCasesFilter = numCompleteCases[['nobs']] > threshold
 	completeCaseIds = numCompleteCases[completeCasesFilter,][['id']]
 	
-	correlations = c()
+	correlations = vector('numeric')
 	for (id in completeCaseIds) {
 		data = getmonitor(id, directory)
 		correlation = cor(data[['sulfate']], data[['nitrate']])
