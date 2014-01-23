@@ -33,9 +33,11 @@ best = function(state, outcome) {
 	} else {
 		stop('invalid outcome')
 	}
+	# Coerce to numbers before we sort, else it'll be lexographic.
+	outcomes[, orderingColumn] = as.numeric(outcomes[, orderingColumn])
 	outcomes = outcomes[order(outcomes[, orderingColumn]),]
-	bestOutcome = head(outcomes, n=1)
 	
+	bestOutcome = head(outcomes, n=1)
 	return(bestOutcome[['Hospital.Name']])
 }
 
