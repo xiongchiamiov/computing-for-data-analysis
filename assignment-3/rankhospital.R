@@ -36,7 +36,7 @@ rankhospital = function(state, outcome, num='best') {
 	}
 	# Coerce to numbers before we sort, else it'll be lexographic.
 	outcomes[, orderingColumn] = as.numeric(outcomes[, orderingColumn])
-	outcomes = outcomes[order(outcomes[, orderingColumn]),]
+	outcomes = outcomes[order(outcomes[, orderingColumn], outcomes[['Hospital.Name']]),]
 	
 	if (num == 'best') {
 		num = 1
