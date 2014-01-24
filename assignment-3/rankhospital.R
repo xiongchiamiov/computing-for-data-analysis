@@ -20,7 +20,7 @@ rankhospital = function(state, outcome, num='best') {
 	orderingColumn = conditionToColumnNumber(condition)
 	outcomes = sortByColumn(outcomes, orderingColumn)
 	
-	num = nlpRankingNumber(num)
+	num = nlpRankingNumber(num, outcomes)
 	
 	return(outcomes[num,][['Hospital.Name']])
 }
@@ -66,7 +66,7 @@ sortByColumn = function(outcomes, orderingColumn) {
 	return(outcomes)
 }
 
-nlpRankingNumber = function(num) {
+nlpRankingNumber = function(num, outcomes) {
 	if (num == 'best') {
 		num = 1
 	} else if (num == 'worst') {

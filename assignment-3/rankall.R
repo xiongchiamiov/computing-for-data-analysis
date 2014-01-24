@@ -13,9 +13,6 @@ rankall = function(outcome, num='best') {
 	# Rename to make more sense than what the spec requires.
 	condition = outcome
 
-	# Convert ranking number to actually a number.
-	num = nlpRankingNumber(num)
-	
 	outcomes = read.csv("outcome-of-care-measures.csv", colClasses = "character")
 	states = unique(outcomes[['State']])
 	# Alphabetize.
@@ -30,7 +27,10 @@ rankall = function(outcome, num='best') {
 		orderingColumn = conditionToColumnNumber(condition)
 		stateOutcomes = sortByColumn(stateOutcomes, orderingColumn)
 		
-		rankedHospitals = c(rankedHospitals, stateOutcomes[num,][['Hospital.Name']])
+		# Convert ranking number to actually a number.
+		index = nlpRankingNumber(num, stateOutcomes)
+		
+		rankedHospitals = c(rankedHospitals, stateOutcomes[index,][['Hospital.Name']])
 	}
 	
 	# Rename variables, because that seems to be the only way to specify the
