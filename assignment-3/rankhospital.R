@@ -14,6 +14,18 @@ rankhospital = function(state, outcome, num='best') {
 	outcomes = read.csv("outcome-of-care-measures.csv", colClasses = "character")
 	
 	# Filter by state.
+	outcomes = filterByState(outcomes, state)
+	
+	# Sort by condition.
+	orderingColumn = conditionToColumnNumber(condition)
+	outcomes = sortByColumn(outcomes, orderingColumn)
+	
+	num = nlpRankingNumber(num)
+	
+	return(outcomes[num,][['Hospital.Name']])
+}
+
+filterByState = function(outcomes, state) {
 	stateFilter = outcomes[['State']] == state
 	outcomes = outcomes[stateFilter,]
 	if (nrow(outcomes) == 0) {
@@ -22,7 +34,11 @@ rankhospital = function(state, outcome, num='best') {
 		stop('invalid state')
 	}
 	
-	# Sort by condition.  Magic numbers aplenty.
+	return(outcomes)
+}
+
+conditionToColumnNumber = function(condition) {
+	# Magic numbers aplenty.
 	# R's switch statement is actually a function, and therefore totally
 	# inappropriate for this.
 	if (condition == 'heart attack') {
@@ -34,6 +50,11 @@ rankhospital = function(state, outcome, num='best') {
 	} else {
 		stop('invalid outcome')
 	}
+	
+	return(orderingColumn)
+}
+
+sortByColumn = function(outcomes, orderingColumn) {
 	# Coerce to numbers before we sort, else it'll be lexographic.
 	outcomes[, orderingColumn] = as.numeric(outcomes[, orderingColumn])
 	outcomes = outcomes[order(outcomes[, orderingColumn], outcomes[['Hospital.Name']]),]
@@ -42,6 +63,10 @@ rankhospital = function(state, outcome, num='best') {
 	naFilter = !is.na(outcomes[,orderingColumn])
 	outcomes = outcomes[naFilter,]
 	
+	return(outcomes)
+}
+
+nlpRankingNumber = function(num) {
 	if (num == 'best') {
 		num = 1
 	} else if (num == 'worst') {
@@ -51,6 +76,6 @@ rankhospital = function(state, outcome, num='best') {
 		num = nrow(outcomes)
 	}
 	
-	return(outcomes[num,][['Hospital.Name']])
+	return(num)
 }
 
