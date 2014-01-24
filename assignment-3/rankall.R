@@ -33,6 +33,11 @@ rankall = function(outcome, num='best') {
 		rankedHospitals = c(rankedHospitals, stateOutcomes[num,][['Hospital.Name']])
 	}
 	
-	return(data.frame(rankedHospitals, states, row.names=states))
+	# Rename variables, because that seems to be the only way to specify the
+	# column names.
+	hospital = rankedHospitals
+	state = states
+	
+	return(data.frame(hospital, state, row.names=states))
 }
 
