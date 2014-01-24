@@ -40,7 +40,7 @@ rankhospital = function(state, outcome, num='best') {
 	
 	if (num == 'best') {
 		num = 1
-	} else if (num == 'best') {
+	} else if (num == 'worst') {
 		# Negative-indexing *removes* rows, rather than wrapping around, so we
 		# can't use -1 like in Python.
 		# We don't need to subtract one because R data frames are one-based.
