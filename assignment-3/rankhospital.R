@@ -38,6 +38,10 @@ rankhospital = function(state, outcome, num='best') {
 	outcomes[, orderingColumn] = as.numeric(outcomes[, orderingColumn])
 	outcomes = outcomes[order(outcomes[, orderingColumn], outcomes[['Hospital.Name']]),]
 	
+	# Filter out NAs, 'cause they're not good *or* bad.  Just unknown.
+	naFilter = !is.na(outcomes[,orderingColumn])
+	outcomes = outcomes[naFilter,]
+	
 	if (num == 'best') {
 		num = 1
 	} else if (num == 'worst') {
