@@ -21,7 +21,14 @@ agecount = function(age=NULL) {
 	# And now make it easier to do summaries on.
 	homicides = data.frame(age=homicides)
 	
-	return(table(homicides)[[as.character(age)]])
+	# I couldn't find any way to do a subscript with a default...
+	summarizedAges = table(homicides)
+	age = as.character(age)
+	if (age %in% names(summarizedAges)) {
+		return(summarizedAges[[age]])
+	} else {
+		return(0)
+	}
 }
 
 extractHomicideAges = function(rawHomicide) {
