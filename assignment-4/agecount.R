@@ -21,7 +21,7 @@ agecount = function(age=NULL) {
 	# And now make it easier to do summaries on.
 	homicides = data.frame(age=homicides)
 	
-	return(table(homicides)[[age]])
+	return(table(homicides)[[as.character(age)]])
 }
 
 extractHomicideAges = function(rawHomicide) {
